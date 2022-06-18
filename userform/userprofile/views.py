@@ -70,10 +70,10 @@ class RegisterViewSet(ViewSet):
         except Exception as e:
             return Response({"status": "failed", 'message': str(e)}, 500)
     
-    def partial_update(self, request, pk=None):
+    def update_email(self, request, pk=None):
         try:
             # token = Token.objects.get(key=(request.META.get('HTTP_AUTHORIZATION'))[6:]).user
-            user_detail = MultiEmail.objects.filter(pk=pk).first()
+            user_detail = MultiEmail.objects.filter(pk=request.data['user']).first()
             serializer = UpdateEmailSerializer(user_detail, data=request.data, partial=True)
             if not serializer.is_valid():
                 return Response({"status": "failed", 'data': serializer.errors}, 422)
@@ -82,11 +82,3 @@ class RegisterViewSet(ViewSet):
             return Response('some exception occurred' + str(e), 500)
         return Response(serializer.data)
 
-
-    def destroy(self, request, pk=None):
-        try:
-            user_detail = UserReg.objects.get(pk=pk)
-            user_detail.delete()
-        except Exception as e:
-            return Response('some exception occurred ' + str(e), 500)
-        return Response('record Deleted successfully')

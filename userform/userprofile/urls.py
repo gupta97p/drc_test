@@ -4,10 +4,11 @@ from .views import *
 
 router = DefaultRouter()
 router.register(r'login', LoginViewSet, basename='register')
-router.register(r'createandupdate', RegisterViewSet, basename='createuser')
+router.register(r'create', RegisterViewSet, basename='createuser')
 
 
 urlpatterns = [
     path('', include(router.urls)),
     path('verify/<int:pk>', LoginViewSet.as_view({'get': 'otp'})),
+    path('update/', RegisterViewSet.as_view({'patch': 'update_email'})),
 ]
