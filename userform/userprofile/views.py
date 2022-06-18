@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, tzinfo
 from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
@@ -38,7 +38,7 @@ class LoginViewSet(ViewSet):
             user_obj = UserReg.objects.filter(mobile=pk).first()
             print(pk, user_obj)
             otp_obj = Verification_Otp.objects.filter(user=user_obj.id).first()
-            if otp_obj.attempts >= 3 and(otp_obj.last_attempt + timedelta(minutes=5)) > datetime.now():
+            if otp_obj.attempts >= 3 and (otp_obj.last_attempt + timedelta(minutes=5)).replace(tzinfo=None) > datetime.now():
                 return Response({'message': 'Max number of retries reached. Please wait for 5 minutes and then try again'}, 401)
             if not otp_obj.pending == request.POST.get('otp'):
                 otp_obj.attempts += 1
