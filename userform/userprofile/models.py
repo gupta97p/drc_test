@@ -24,3 +24,4 @@ class Verification_Otp(models.Model):
 class MultiEmail(models.Model):
     user = models.ForeignKey(UserReg, on_delete=models.CASCADE)
     email_id = models.EmailField()
+    is_primary = models.BooleanField(default=False)
