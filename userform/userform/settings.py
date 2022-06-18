@@ -70,6 +70,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'userform.wsgi.application'
+AUTH_USER_MODEL = 'userprofile.UserReg'
 
 
 # Database

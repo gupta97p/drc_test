@@ -1,5 +1,5 @@
 class dbname():
-    name = 'ttapp'
+    name = 'drctest'
     host = 'localhost'
     user = 'root'
     password = 'Pass@2020.'
